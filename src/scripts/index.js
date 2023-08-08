@@ -142,13 +142,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // CLASS
   class MenuCard {
-    constructor({ src, alt, title, descr, price, parentSelector }) {
+    constructor({ src, alt, title, descr, price, parentSelector, classes = [] }) {
       this.src = src;
       this.alt = alt;
       this.title = title;
       this.descr = descr;
       this.price = price;
       this.parent = document.querySelector(parentSelector);
+      this.element = document.createElement('div');
+      this.classes = classes;
       this.transfer = 95;
 
       this.converToRUB();
@@ -159,22 +161,22 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     render() {
-      const element = document.createElement('div');
+      this.element.classList.add('menu__item');
 
-      element.innerHTML = `
-        <div class="menu__item">
-          <img src="${this.src}" alt="${this.alt}" />
-          <h3 class="menu__item-subtitle">${this.title}</h3>
-          <div class="menu__item-descr">${this.descr}</div>
-          <div class="menu__item-divider"></div>
-          <div class="menu__item-price">
-            <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
-          </div>
+      this.classes.forEach((className) => this.element.classList.add(className));
+
+      this.element.innerHTML = `
+        <img src="${this.src}" alt="${this.alt}" />
+        <h3 class="menu__item-subtitle">${this.title}</h3>
+        <div class="menu__item-descr">${this.descr}</div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+          <div class="menu__item-cost">Цена:</div>
+          <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
         </div>
       `;
 
-      this.parent.append(element);
+      this.parent.append(this.element);
     }
   }
 
@@ -186,6 +188,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'Меню “Фитнес“ - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
     price: 10,
     parentSelector: '.menu__field .container',
+    classes: ['menu__item', 'first'],
   }).render();
 
   new MenuCard({
@@ -196,6 +199,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
     price: 25,
     parentSelector: '.menu__field .container',
+    classes: ['second'],
   }).render();
 
   new MenuCard({
