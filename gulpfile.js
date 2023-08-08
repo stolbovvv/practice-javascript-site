@@ -48,9 +48,12 @@ const handleScripts = () => {
 
 // Task: "Copy"
 const runCopy = () => {
-  return src([`${DIR_SOURCE}/*.*`, `${DIR_SOURCE}/fonts/**/*`, `${DIR_SOURCE}/images/**/*`], {
-    base: `${DIR_SOURCE}/`,
-  }).pipe(dest(`${DIR_BUILD}/`));
+  return src(
+    [`${DIR_SOURCE}/*.*`, `${DIR_SOURCE}/fonts/**/*`, `${DIR_SOURCE}/images/**/*`, `${DIR_SOURCE}/icons/**/*`],
+    {
+      base: `${DIR_SOURCE}/`,
+    },
+  ).pipe(dest(`${DIR_BUILD}/`));
 };
 
 // Task: "Archive"
@@ -88,8 +91,8 @@ const runWatcher = () => {
   watch([`${DIR_SOURCE}/*.*`]).on('add', reload);
   watch([`${DIR_SOURCE}/*.*`]).on('change', reload);
 
-  watch([`${DIR_SOURCE}/{fonts, images}/**/*.*`]).on('add', reload);
-  watch([`${DIR_SOURCE}/{fonts, images}/**/*.*`]).on('change', reload);
+  watch([`${DIR_SOURCE}/{fonts, icons, images}/**/*.*`]).on('add', reload);
+  watch([`${DIR_SOURCE}/{fonts, icons, images}/**/*.*`]).on('change', reload);
 };
 
 // Gulp base scripts:
