@@ -36,4 +36,57 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // TIMER
+  const deadline = '2023-09-01T00:00:00';
+
+  function getTimeRemaning(endtime) {
+    const timeDifference = new Date(endtime) - new Date();
+    const days = Math.floor(timeDifference / 1000 / 60 / 60 / 24);
+    const hours = Math.floor((timeDifference / 1000 / 60 / 60) % 24);
+    const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
+    const seconds = Math.floor((timeDifference / 1000) % 60);
+
+    return { days, hours, minutes, seconds, timeDifference };
+  }
+
+  function setClock(selector, endtime) {
+    const timer = document.querySelector(selector);
+    const days = timer.querySelector('#days');
+    const hours = timer.querySelector('#hours');
+    const minutes = timer.querySelector('#minutes');
+    const seconds = timer.querySelector('#seconds');
+
+    let timeInterval;
+
+    function correctTimeTtem(time) {
+      if (time < 10) return `0${time}`;
+
+      return time;
+    }
+
+    function updateClock() {
+      const timeData = getTimeRemaning(endtime);
+
+      days.textContent = correctTimeTtem(timeData.days);
+      hours.textContent = correctTimeTtem(timeData.hours);
+      minutes.textContent = correctTimeTtem(timeData.minutes);
+      seconds.textContent = correctTimeTtem(timeData.seconds);
+
+      if (timeData.timeDifference <= 0) {
+        clearInterval(timeInterval);
+
+        days.textContent = '0';
+        hours.textContent = '00';
+        minutes.textContent = '00';
+        seconds.textContent = '00';
+      }
+    }
+
+    updateClock();
+
+    timeInterval = setInterval(updateClock, 1000);
+  }
+
+  setClock('.timer', deadline);
 });
