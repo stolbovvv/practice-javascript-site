@@ -1,0 +1,90 @@
+/* Custom properties */
+
+:root {
+  --container-width: 90rem;
+  --container-padding: 1.25rem;
+
+  --clr-neutral-1: #ffffff;
+  --clr-neutral-2: #8e8e8e;
+  --clr-neutral-3: #000000;
+
+  --font-size-regulra: 1rem;
+  --font-size-heading: 1.5rem;
+
+  --font-family-regular: sans-serif;
+  --font-family-heading: serif;
+
+  --font-weight-regular: 400;
+  --font-weight-heading: 700;
+
+  --line-height-regular: 1.4;
+  --line-height-heading: 1.2;
+
+  --border-radius-1: 0.25rem;
+  --border-radius-2: 0.5rem;
+  --border-radius-3: 0.75rem;
+
+  --transition-ease-1: 0.2s ease;
+  --transition-ease-2: 0.4s ease;
+  --transition-ease-3: 0.6s ease;
+}
+
+/* General styling */
+
+html,
+body {
+  height: 100%;
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-size: var(--font-size-regulra);
+  font-family: var(--font-family-regular);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-regular);
+  color: var(--clr-neutral-3);
+  background-color: var(--clr-neutral-1);
+}
+
+/* Layout styling */
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  width: min(var(--container-width), calc(100% - var(--container-padding) * 2));
+  margin-inline: auto;
+}
+
+.header {
+  flex: 0 0 auto;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.footer {
+  flex: 0 0 auto;
+}
+
+/* Components styling */
+
+/* Utility styling */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+}
+
+/* Media queries */
