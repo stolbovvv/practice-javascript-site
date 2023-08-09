@@ -9,6 +9,7 @@
     "clean": "set NODE_ENV=development && gulp clean",
     "build": "set NODE_ENV=production && gulp build",
     "archive": "set NODE_ENV=production && gulp archive",
+    "server": "json-server ./data/db.json",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
