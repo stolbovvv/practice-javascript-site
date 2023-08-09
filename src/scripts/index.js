@@ -247,9 +247,8 @@ window.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       const statusMessage = document.createElement('img');
-      const jsonData = {};
       const formData = new FormData(form);
-      const request = new XMLHttpRequest();
+      const jsonData = {};
 
       statusMessage.src = messages.loading;
       statusMessage.style.display = 'block';
@@ -257,23 +256,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
       form.insertAdjacentElement('afterend', statusMessage);
 
-      request.open('POST', 'http://localhost:3000/server.php');
-      request.setRequestHeader('Content-type', 'application/json');
-
       formData.forEach((value, key) => (jsonData[key] = value));
 
-      request.send(JSON.stringify(jsonData));
-
-      request.addEventListener('load', () => {
-        if (request.status === 200) {
-          console.log(request.response);
+      fetch('http://localhost:3000/server.php', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(jsonData),
+      })
+        .then((data) => data.text())
+        .then((data) => {
+          console.log(data);
           showThanksModal(messages.succses);
-          form.reset();
-          statusMessage.remove();
-        } else {
+        })
+        .catch(() => {
           showThanksModal(messages.failure);
-        }
-      });
+        })
+        .finally(() => {
+          statusMessage.remove();
+          form.reset();
+        });
     });
   }
 
