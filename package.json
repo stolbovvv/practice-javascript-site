@@ -9,7 +9,8 @@
     "clean": "set NODE_ENV=development && gulp clean",
     "build": "set NODE_ENV=production && gulp build",
     "archive": "set NODE_ENV=production && gulp archive",
-    "server": "json-server ./data/db.json",
+    "php-server": "php --server localhost:3000",
+    "json-server": "json-server --port 3000 ./data/db.json",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
