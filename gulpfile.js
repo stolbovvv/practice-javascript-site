@@ -3,6 +3,7 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import terser from 'gulp-terser';
 import rename from 'gulp-rename';
+import webpack from 'webpack-stream';
 import gulpzip from 'gulp-zip';
 import postcss from 'gulp-postcss';
 import browserSync from 'browser-sync';
@@ -38,6 +39,7 @@ const handleStyles = () => {
 // Task: "Scripts"
 const handleScripts = () => {
   return src([`${DIR_SOURCE}/scripts/*.js`, `!${DIR_SOURCE}/scripts/*.min.js`], { sourcemaps: MODE_DEV })
+    .pipe(webpack({ mode: MODE_PROD ? 'production' : 'development', output: { filename: 'index.js' } }))
     .pipe(babel({ presets: ['@babel/env'] }))
     .pipe(dest(`${DIR_BUILD}/scripts/`))
     .pipe(terser({ keep_fnames: true, mangle: false }))
